@@ -70,4 +70,3 @@ describe 'profile search' do
   end
 
 end
-
