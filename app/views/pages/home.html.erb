@@ -35,7 +35,7 @@
       <%= link_to t(:speaker_index, scope: "pages.home.speakers"), profiles_path %>
       <br>
       <%= form_tag(profiles_search_path, method: "get", class:"well") do %>
-        <%= text_field_tag(:q, nil, id: "search-field", placeholder: t(:search_text, scope: "pages.home.search")) %>
+        <%= text_field_tag('search[quick]', nil, id: "search-field", placeholder: t(:search_text, scope: "pages.home.search")) %>
         <%= button_tag((t(:search, scope: "pages.home.search")), class: "btn btn-large") %>
       <% end %>
     </h2>
