@@ -1,72 +1,30 @@
 <div class="container profiles">
   <h1>
-    <%= t(:title, scope: "profiles.index") %>
+    <%= t(:title, scope: 'profiles.index') %>
   </h1>
   <div class="row">
     <div class="span6">
       <span class="italic">
-        <%= t(:text, scope: "profiles.index").html_safe %>
+        <%= t(:text, scope: 'profiles.index').html_safe %>
       </span>
     </div>
-    <div class='span6' style="vertical-align:bottom">
-      <%= form_tag(profiles_search_path, method: "get", class:"well") do %>
-        <%= text_field_tag('search[quick]', nil, id: "search-field", placeholder: t(:search_text, scope: "pages.home.search")) %>
-        <%= button_tag((t(:search, scope: "pages.home.search")), class: "btn btn-large ") %>
-      <% end %>
-
-      <%= form_tag(profiles_search_path, method: "get", class:"well form-horizontal", id: "detailed-search") do %>
-        <div class="control-group">
-          <%= label_tag('search[name]',t(:name, scope: "profiles.index"), class: "control-label") %>
-          <div class="controls">
-            <%= text_field_tag('search[name]') %>
-          </div>
-        </div>
-
-        <div class="control-group">
-          <%= label_tag('search[twitter]',t(:twitter, scope: "profiles.index"), class: "control-label") %>
-          <div class="controls">
-            <%= text_field_tag('search[twitter]') %>
-          </div>
-        </div>
-
-        <div class="control-group">
-          <%= label_tag('search[topics]',t(:topics, scope: "profiles.index"), class: "control-label") %>
-          <div class="controls">
-            <%= text_field_tag('search[topics]') %>
-          </div>
-        </div>
-
-        <div class="control-group">
-          <%= label_tag('search[city]',t(:city, scope: "profiles.index"), class: "control-label") %>
-          <div class="controls">
-            <%= text_field_tag('search[city]') %>
-          </div>
-        </div>
-
-        <div class="control-group">
-          <%= label_tag('search[languages]', t(:language, scope: "profiles.index"), class: "control-label") %>
-          <div class="controls">
-            <%= language_select %>
-          </div>
-        </div>
-        <%= button_tag((t(:search, scope: "pages.home.search")), class: "btn btn-large ") %>
-      <% end %>
-
+    <div class="span6" style="vertical-align:bottom">
+      <%= render partial: 'shared/profile_search' %>
     </div>
   </div>
   <hr>
   <br>
-  <div class='row'>
-    <%= render partial: "profile", collection: @profiles %>
+  <div class="row">
+    <%= render partial: 'profile', collection: @profiles %>
   </div>
   <div class="row">
     <div class="span12 text-center">
       <%= paginate @profiles %>
     </div>
   </div>
-  <div class='row'>
-    <%= render partial: "tag" %>
+  <div class="row">
+    <%= render partial: 'tag' %>
   </div>
 </div>
-<%= render partial: "layouts/footer" %>
+<%= render partial: 'layouts/footer' %>
 <br>
