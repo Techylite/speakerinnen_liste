@@ -43,8 +43,7 @@ describe LanguageMigrator, type: :model do
       profile = FactoryGirl.create(:profile, languages: 'German, English, Spanish')
 
       LanguageMigrator.create_profile_languages(profile)
-      pending("not yet implemented")
-      expect(profile.profile_languages.map(&:iso_639_1)).to match_array ['de', 'en', 'sp']
+      expect(profile.profile_languages.map(&:iso_639_1)).to match_array ['de', 'en', 'es']
     end
 
     it 'creates ProfileLanguages for "Deutsch, Englisch, Türkisch"' do
