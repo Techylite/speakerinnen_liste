@@ -5,8 +5,8 @@ class LanguageMigrator
       I18n.locale = locale
       Array(profiles).each do |profile|
         I18n.t('iso_639_1').each do |iso_code, language|
-          if profile.languages.match(/#{language}|#{iso_code}(\,|\z)|#{custom_matcher(iso_code)}/i)
-            ProfileLanguage.create!(profile: profile, iso_639_1: iso_code) unless ProfileLanguage.find_by(profile: profile, iso_639_1: iso_code)
+          if !language_exists?(profile, iso_code) && language_matches?(profile, language, iso_code)
+            ProfileLanguage.create!(profile: profile, iso_639_1: iso_code)
           end
         end
       end
@@ -15,6 +15,14 @@ class LanguageMigrator
   end
 
   private
+
+  def self.language_matches?(profile, language, iso_code)
+    profile.languages.match(/#{language}|#{iso_code}(\,|\z)|#{custom_matcher(iso_code)}/i)
+  end
+
+  def self.language_exists?(profile, iso_code)
+    ProfileLanguage.find_by(profile: profile, iso_639_1: iso_code).present?
+  end
 
   def self.custom_matcher(iso_code)
     match_hash = Hash.new(/\d{5}/)
