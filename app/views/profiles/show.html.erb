@@ -35,7 +35,7 @@
       <hr>
 
       <h5><%= t(:languages, scope: 'profiles.profile') %></h5>
-      <span><%= @profile.languages %></span>
+      <span><%= @profile.profile_languages.pluck(:iso_639_1) %></span>
       <hr>
 
       <% if @profile.city.present? %>
