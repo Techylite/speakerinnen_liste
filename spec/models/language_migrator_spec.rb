@@ -17,6 +17,13 @@ describe LanguageMigrator, type: :model do
       expect(profile.profile_languages.map(&:iso_639_1)).to match_array ['en', 'de']
     end
 
+    it 'creates ProfileLanguages for "de;en"' do
+      profile = FactoryGirl.create(:profile, languages: 'de;en')
+
+      LanguageMigrator.create_profile_languages(profile)
+      expect(profile.profile_languages.map(&:iso_639_1)).to match_array ['de', 'en']
+    end
+
     it 'creates ProfileLanguages for "Deutsch"' do
       profile = FactoryGirl.create(:profile, languages: 'Deutsch')
 
@@ -24,12 +31,11 @@ describe LanguageMigrator, type: :model do
       expect(profile.profile_languages.map(&:iso_639_1)).to match_array ['de']
     end
 
-    it 'ignores the languages and notes in brackets' do
+    it 'matches languages in brackets' do
       profile = FactoryGirl.create(:profile, languages: 'Deutsch, Englisch, (Französisch, Italienisch)')
 
       LanguageMigrator.create_profile_languages(profile)
-      pending("not yet implemented")
-      expect(profile.profile_languages.map(&:iso_639_1)).to match_array ['de', 'en']
+      expect(profile.profile_languages.map(&:iso_639_1)).to match_array ['de', 'en', 'fr', 'it']
     end
 
     it 'ignores not known languages' do
@@ -90,7 +96,7 @@ describe LanguageMigrator, type: :model do
     end
 
     it 'creates ProfileLanguages for nil' do
-      profile = FactoryGirl.create(:profile, languages: 'nil')
+      profile = FactoryGirl.create(:profile, languages: nil)
 
       LanguageMigrator.create_profile_languages(profile)
       expect(profile.profile_languages.map(&:iso_639_1)).to be_empty;
