@@ -52,5 +52,49 @@ describe LanguageMigrator, type: :model do
       LanguageMigrator.create_profile_languages(profile)
       expect(profile.profile_languages.map(&:iso_639_1)).to match_array ['de', 'en', 'tr']
     end
+
+#more languages
+    it 'creates ProfileLanguages for Francais' do
+      profile = FactoryGirl.create(:profile, languages: 'Francais')
+
+      LanguageMigrator.create_profile_languages(profile)
+      expect(profile.profile_languages.map(&:iso_639_1)).to match_array ['fr']
+    end
+
+    it 'creates ProfileLanguages for English & German' do
+      profile = FactoryGirl.create(:profile, languages: 'English & German')
+
+      LanguageMigrator.create_profile_languages(profile)
+      expect(profile.profile_languages.map(&:iso_639_1)).to match_array ['en', 'de']
+    end
+
+    it 'creates ProfileLanguages for Deutsch, Englisch fliessend' do
+      profile = FactoryGirl.create(:profile, languages: 'Deutsch, Englisch fliessend')
+
+      LanguageMigrator.create_profile_languages(profile)
+      expect(profile.profile_languages.map(&:iso_639_1)).to match_array ['de', 'en']
+    end
+
+    it 'creates ProfileLanguages for Deutsch, English, Español' do
+      profile = FactoryGirl.create(:profile, languages: 'Deutsch, English, Español')
+
+      LanguageMigrator.create_profile_languages(profile)
+      expect(profile.profile_languages.map(&:iso_639_1)).to match_array ['de', 'en', 'es']
+    end
+
+    it 'creates ProfileLanguages for Englisch; Französisch; Italienisch; Luxemburgisch' do
+      profile = FactoryGirl.create(:profile, languages: 'Englisch; Französisch; Italienisch; Luxemburgisch')
+
+      LanguageMigrator.create_profile_languages(profile)
+      expect(profile.profile_languages.map(&:iso_639_1)).to match_array ['fr', 'en', 'it', 'lb']
+    end
+
+    it 'creates ProfileLanguages for nil' do
+      profile = FactoryGirl.create(:profile, languages: 'nil')
+
+      LanguageMigrator.create_profile_languages(profile)
+      expect(profile.profile_languages.map(&:iso_639_1)).to be_empty;
+    end
+
   end
 end
