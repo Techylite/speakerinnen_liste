@@ -34,6 +34,7 @@ class ProfilesController < ApplicationController
     if @profile.published? or can_edit_profile?(current_profile, @profile)
       @message = Message.new
       @medialinks = @profile.medialinks.order(:position)
+      @countries = Country.all 
     else
       redirect_to profiles_url, notice: (I18n.t('flash.profiles.show_no_permission'))
     end
@@ -46,6 +47,7 @@ class ProfilesController < ApplicationController
 
   # should reuse the devise view
   def edit
+    @countries = Country.all 
     build_missing_translations(@profile)
   end
 

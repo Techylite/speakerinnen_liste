@@ -1,6 +1,7 @@
 class Profile < ActiveRecord::Base
   include AutoHtml
   include HasPicture
+  belongs_to :country
 
   translates :bio, :main_topic, fallbacks_for_empty_translations: true
   accepts_nested_attributes_for :translations

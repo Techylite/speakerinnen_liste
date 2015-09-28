@@ -187,6 +187,38 @@ ALTER SEQUENCE category_translations_id_seq OWNED BY category_translations.id;
 
 
 --
+-- Name: countries; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE countries (
+    id integer NOT NULL,
+    name character varying(255),
+    language character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: countries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE countries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: countries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE countries_id_seq OWNED BY countries.id;
+
+
+--
 -- Name: medialinks; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -290,7 +322,9 @@ CREATE TABLE profiles (
     media_url character varying(255),
     published boolean DEFAULT false,
     website character varying(255),
-    admin_comment text
+    admin_comment text,
+    country character varying(255)
+    language character varying(255)
 );
 
 
@@ -436,6 +470,13 @@ ALTER TABLE ONLY category_translations ALTER COLUMN id SET DEFAULT nextval('cate
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY countries ALTER COLUMN id SET DEFAULT nextval('countries_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY medialinks ALTER COLUMN id SET DEFAULT nextval('medialinks_id_seq'::regclass);
 
 
@@ -505,6 +546,14 @@ ALTER TABLE ONLY categories_tags
 
 ALTER TABLE ONLY category_translations
     ADD CONSTRAINT category_translations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: countries_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY countries
+    ADD CONSTRAINT countries_pkey PRIMARY KEY (id);
 
 
 --
@@ -709,4 +758,12 @@ INSERT INTO schema_migrations (version) VALUES ('20140901194315');
 INSERT INTO schema_migrations (version) VALUES ('20150131194544');
 
 INSERT INTO schema_migrations (version) VALUES ('20150715095533');
+
+INSERT INTO schema_migrations (version) VALUES ('20150916160647');
+
+INSERT INTO schema_migrations (version) VALUES ('20150922175604');
+
+INSERT INTO schema_migrations (version) VALUES ('20150922175724');
+
+INSERT INTO schema_migrations (version) VALUES ('20150922213829');
 

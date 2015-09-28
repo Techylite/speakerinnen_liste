@@ -1,5 +1,7 @@
 SpeakerinnenListe::Application.routes.draw do
 
+  resources :countries
+
   scope '(:locale)', locale: /en|de/ do
 
     # route post to /tags/merge to here

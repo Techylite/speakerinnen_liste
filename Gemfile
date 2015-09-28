@@ -5,6 +5,7 @@ gem 'rails', '4.1.5'
 gem 'normalize-rails'
 gem 'bootswatch-rails'
 gem 'faker', '1.0.1'
+#gem 'country_select'
 
 gem 'deadweight', require: 'deadweight/hijack/rails'
 
